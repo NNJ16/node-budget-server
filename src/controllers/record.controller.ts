@@ -16,7 +16,9 @@ export const createRecord: RequestHandler = async (req, res, next) => {
 
 export const getRecord: RequestHandler = async (req, res, next) => {
   try {
-    var records = await Record.find({});
+    var records = await Record.find({}).sort({
+      _id: -1,
+    });
     return res.status(200).json({ message: "All Records!", data: records });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -25,8 +27,10 @@ export const getRecord: RequestHandler = async (req, res, next) => {
 
 export const updateRecord: RequestHandler = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    var records = await Record.findByIdAndUpdate(id, req.body, { new: true });
+    const { id } = req.body.id;
+    var records = await Record.findOneAndUpdate({ id: id }, req.body, {
+      new: true,
+    });
     return res
       .status(200)
       .json({ message: "Record updated successfully!", data: records });
@@ -38,7 +42,7 @@ export const updateRecord: RequestHandler = async (req, res, next) => {
 export const deleteRecord: RequestHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
-    var isDeleted = await Record.findByIdAndDelete(id);
+    var isDeleted = await Record.findOneAndDelete({ id: id });
     if (!isDeleted) throw new Error("Failed to delete Record");
     return res.status(200).json({ message: "Record deleted successfully!" });
   } catch (error: any) {

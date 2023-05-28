@@ -12,7 +12,7 @@ router.post("/", createRecord);
 
 router.get("/", getRecord);
 
-router.patch("/:id", updateRecord);
+router.patch("/", updateRecord);
 
 router.delete("/:id", deleteRecord);
 

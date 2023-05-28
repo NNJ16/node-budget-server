@@ -1,11 +1,14 @@
 import express from "express";
 import db from "mongoose";
+import cors from "cors";
 import recordRoutes from "./routes/record.route";
 import { json, urlencoded } from "body-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+
+app.use(cors());
 
 app.use(json());
 

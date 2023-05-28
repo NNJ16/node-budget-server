@@ -25,6 +25,10 @@ export interface RecordModel {
   };
 }
 const RecordsSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+  },
   label: {
     type: String,
     required: true,
@@ -46,5 +50,8 @@ const RecordsSchema = new mongoose.Schema({
     required: true,
   },
 });
-const Record: Model<RecordType> = mongoose.model<RecordType>("Record", RecordsSchema);
+const Record: Model<RecordType> = mongoose.model<RecordType>(
+  "Record",
+  RecordsSchema
+);
 export default Record;
